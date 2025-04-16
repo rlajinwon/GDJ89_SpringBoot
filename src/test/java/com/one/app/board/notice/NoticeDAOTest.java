@@ -36,7 +36,19 @@ class NoticeDAOTest {
 		BoardVO boardVO = new BoardVO();
 		BoardVO dto = noticeDAO.getDetail(boardVO);
 		assertNotNull(dto);
+		
 
+	}
+	
+	@Test
+	void test2() throws Exception{
+		
+	
+		
+		
+		
+		
+		
 	}
 	
 		

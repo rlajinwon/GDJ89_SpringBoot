@@ -9,7 +9,8 @@
 <body>
 
 
-<h2>home</h2>
+	<h2>Home</h2>
+	<img alt="" src="/images/롯데자이언츠.jpg">
 
 </body>
 </html>

@@ -20,5 +20,11 @@
 	
 	</select>
 
+	<insert id="add">
+	INSERT INTO NOTICE_TBL 
+	VALUES (NULL,#{boardTitle},#{boardContents},NOW(),0,#{userName});
+	</insert>
+
+
 
 </mapper>
