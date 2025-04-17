@@ -46,18 +46,21 @@
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<form action="/search" method="GET"
+							<form action="./list" method="GET"
 								class="form-inline my-2 my-lg-0">
 								<!-- 드롭다운 -->
-								<select class="form-control mr-sm-2" name="type">
-									<option value="title">제목</option>
-									<option value="content">내용</option>
-									<option value="title_content">제목 + 내용</option>
+								<select class="form-control mr-sm-2" name="kind">
+									<option value="k1" ${pager.kind eq 'k1' ? 'selected': ' ' }>제목</option>
+									<option value="k2" ${pager.kind eq 'k2' ? 'selected': ' ' }>내용</option>
+									<option value="k3" ${pager.kind eq 'k3' ? 'selected': ' ' }>작성자</option>
 								</select>
 
+
+
 								<!-- 검색어 입력 -->
-								<input class="form-control mr-sm-2" type="search"
-									placeholder="Search" aria-label="Search" name="query">
+								<input class="form-control mr-sm-2" type="text"
+									placeholder="Search" aria-label="Search"
+									value="${pager.search}" name="search">
 
 								<!-- 회색 버튼 -->
 								<button class="btn btn-outline-secondary my-2 my-sm-0"
@@ -83,7 +86,8 @@
 										<c:forEach items="${list}" var="vo">
 											<tr>
 												<td>${vo.boardNum}</td>
-												<td>${vo.boardTitle}</td>
+												<td><a href="/notice/detail?boardNum=${vo.boardNum}">${vo.boardTitle}</a>
+												</td>
 												<td>${vo.userName}</td>
 												<td>${vo.boardDate}</td>
 												<td>${vo.boardHit}</td>
@@ -95,22 +99,46 @@
 								</table>
 								<nav aria-label="Page navigation example">
 									<ul class="pagination justify-content-center">
+
 										<!-- 이전 페이지 버튼 -->
-										<li class="page-item disabled"><a class="page-link"
-											href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+										<c:if test="${pager.page > 1}">
+											<li class="page-item"><a class="page-link"
+												href="?page=${pager.page - 1}&search=${pager.search}">Previous</a></li>
+										</c:if>
+										<c:if test="${pager.page == 1}">
+											<li class="page-item disabled"><a class="page-link"
+												href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+										</c:if>
 
 										<!-- 페이지 번호 버튼 -->
-										<li class="page-item active"><a class="page-link"
-											href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a>
-										</li>
-										<li class="page-item"><a class="page-link" href="#">3</a>
-										</li>
+										<c:forEach var="i" begin="${pager.start}" end="${pager.end}">
+											<li class="page-item ${i == pager.page ? 'active' : ''}">
+												<a class="page-link"
+												href="?page=${i} &search=${pager.search}">${i}</a>
+											</li>
+										</c:forEach>
+
 										<!-- 다음 페이지 버튼 -->
-										<li class="page-item"><a class="page-link" href="#">Next</a>
-										</li>
+										<c:if test="${!pager.endCheck}">
+											<li class="page-item"><a class="page-link"
+												href="?page=${pager.page + 1} &search=${pager.search}">Next</a></li>
+										</c:if>
+										<c:if test="${pager.endCheck}">
+											<li class="page-item disabled"><a class="page-link"
+												href="#" tabindex="-1" aria-disabled="true">Next</a></li>
+										</c:if>
+
 									</ul>
 								</nav>
+								
+								
+								<div>
+									<a href="./add" class="btn btn-dark">글 작성</a>
+								</div>
+								
+								
+								
+
 							</div>
 						</div>
 					</div>

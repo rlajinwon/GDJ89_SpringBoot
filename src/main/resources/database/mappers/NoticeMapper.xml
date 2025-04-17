@@ -3,22 +3,92 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 
 <mapper namespace="com.one.app.board.notice.NoticeDAO">
 
-	<select id="getList" resultType="NoticeVO">
-	
-		SELECT * FROM NOTICE_TBL 
-	
-	</select>
-	
-	
-	<select id="getDetail" resultType="NoticeVO">
+	<select id="getList" resultType="NoticeVO" parameterType="Pager">
+
 		SELECT * FROM NOTICE_TBL
-		LIMIT 1;
-	
+
+		<include refid="search"></include>
+
+		ORDER BY BOARD_NUM DESC
+		LIMIT #{startNum},#{perPage}
+
+
+
 	</select>
+
+
+
+<sql id="search">
+	<where>
+		<if test="kind=='k1' and search != null and search != ''">
+			BOARD_TITLE LIKE CONCAT('%',#{search},'%')
+		</if>
+		<if test="kind=='k2' and search != null and search != ''">
+			BOARD_CONTENTS LIKE CONCAT('%',#{search},'%')
+		</if>
+		<if test="kind=='k3' and search != null and search != ''">
+			USER_NAME LIKE CONCAT('%',#{search},'%')
+		</if>
+	</where>
+</sql>
+
+
+	<insert id="add" parameterType="NoticeVO">
+	INSERT INTO NOTICE_TBL 
+	VALUES(NULL,#{boardTitle},#{boardContents},NOW(),0,#{userName})
+	
+	</insert>
+
+
+
+	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+		SELECT COUNT(BOARD_NUM)
+		FROM NOTICE_TBL
+		<include refid="search"></include>
+	</select>
+
+
+
+	<insert id="test" parameterType="java.util.List">
+		INSERT INTO NOTICE_TBL
+		(BOARD_TITLE, BOARD_CONTENTS, BOARD_DATE, BOARD_HIT, USER_NAME)
+		VALUES
+		<foreach collection="list" item="vo" separator=",">
+			(#{vo.boardTitle}, #{vo.boardContents}, NOW(), 0, #{vo.userName})
+		</foreach>
+
+	</insert>
+
+
+
+
+
+
+	<select id="getDetail" resultType="NoticeVO" parameterType="NoticeVO">
+		SELECT * FROM NOTICE_TBL
+		WHERE BOARD_NUM=#{boardNum}
+	</select>
+
+
+	<delete id="delete" parameterType="NoticeVO">
+	DELETE FROM NOTICE_TBL
+	WHERE BOARD_NUM=#{boardNum}
+	
+	
+	
+	</delete>
+
+	<update id="update" parameterType="NoticeVO">
+	UPDATE NOTICE_TBL SET BOARD_TITLE =#{boardTitle}, BOARD_CONTENTS =#{boardContents} WHERE BOARD_NUM=#{boardNum}  
+	
+	</update>
+
+
+
 
 
 
