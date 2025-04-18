@@ -29,18 +29,30 @@
 
                <h2>${kind} 글 작성</h2>
 
-               <form action="" method="post" class="mt-4">
+               <form action="" method="post" class="mt-4" enctype="multipart/form-data">
                   <div class="form-group">
                      <label for="boardTitle">제목</label>
                      <input type="text" class="form-control" id="boardTitle" name="boardTitle" required>
                   </div>
 
     
+    			
+    
+    
 
                   <div class="form-group">
                      <label for="boardContents">내용</label>
                      <textarea class="form-control" id="boardContents" name="boardContents" rows="10" required></textarea>
                   </div>
+                  
+                  <div>
+    				<input type="file" name="attaches"><br>
+    				<input type="file" name="attaches"><br>
+    				<input type="file" name="attaches"><br>
+    			</div>
+    
+                  
+                  
 
                   <button type="submit" class="btn btn-primary mt-3">작성</button>
                   <a href="/notice/list" class="btn btn-secondary mt-3">목록으로</a>

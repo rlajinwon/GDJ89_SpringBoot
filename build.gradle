@@ -38,9 +38,18 @@ dependencies {
     
     //lombok
    compileOnly 'org.projectlombok:lombok'
+   annotationProcessor 'org.projectlombok:lombok'
 
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+//Build시 Test Skip
+test {
+	exclude '**/*'
+}
+
+

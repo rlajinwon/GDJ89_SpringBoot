@@ -1,6 +1,7 @@
 package com.one.app.board;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,15 @@ public class BoardVO {
 	private Date boardDate;
 	private Long boardHit;
 	private String userName;
+	
+	private List<BoardFileVO> boardFileVO;
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

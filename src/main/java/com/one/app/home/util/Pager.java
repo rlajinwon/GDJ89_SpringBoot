@@ -33,6 +33,8 @@ public class Pager {
 	private boolean endCheck;
 	
 	
+
+	
 	
 	public String getKind() {
 		if(this.kind == null) {

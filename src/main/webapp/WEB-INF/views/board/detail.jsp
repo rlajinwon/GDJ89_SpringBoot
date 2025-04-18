@@ -59,14 +59,25 @@
 					</table>
 
 
+
 					<div class="alert alert-dark" role="alert" style="min-height: 60vh">
 						${vo.boardContents}</div>
+
+					<div class="card-body">
+						<c:forEach items="${vo.boardFileVO}" var="f">
+							<a href="./fileDown?$fileNum=${f.fileNum} ">${f.oldName}</a>
+						<%-- 	<img alt="" src="/files/${kind}/${f.fileName}"> --%>
+						</c:forEach>
+					</div>
+
+
+
 
 					<form action="./delete" method="post" style="display: inline;">
 						<input type="hidden" name="boardNum" value="${vo.boardNum}" />
 						<button type="submit" class="btn btn-dark">글 삭제</button>
 					</form>
-				
+
 					<a href="./update?boardNum=${vo.boardNum}"
 						class="btn btn-outline-success">수정</a>
 
